@@ -29,3 +29,12 @@ h1{
   padding: 10px;
   margin-bottom: 10px;
 }
+
+.navbar-link{
+	text-decoration: none;
+	color: inherit;
+}
+
+.login-form-container{
+	padding: 20px;
+}

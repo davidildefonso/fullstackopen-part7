@@ -2,6 +2,8 @@ import React from 'react'
 import { connect, useDispatch, useSelector  } from 'react-redux'
 import { loginUser, logoutUser } from '../reducers/loginReducer'
 import { showNotification, hideNotification } from '../reducers/notificationReducer'
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 
 const LoginForm = (props) => {
 	const dispatch = useDispatch()
@@ -45,29 +47,30 @@ const LoginForm = (props) => {
 
 
   return (
-    <div>
-      <h2>Login</h2>
+    <Stack spacing={2} direction="column" className='login-form-container'>
+      <h2>LOGIN</h2>
 
       <form id="form" onSubmit={login}>
-        <div>
-          username
-          <input
-			id="username"
-            name='username'
-            
-          />
-        </div>
-        <div>
-          password
-          <input
-			id="password"
-            type="password"
-            name='password'          
-          />
-      </div>
-        <button id="login-button" type="submit">login</button>
+			<Stack spacing={2} direction="column">
+				<Stack spacing={2} direction="row">
+					<span>username</span>
+					<input
+						id="username"
+						name='username' 
+					/>
+				</Stack>
+				<Stack spacing={2} direction="row">
+					<span>password</span>
+					<input
+						id="password"
+						type="password"
+						name='password'          
+					/>
+				</Stack>
+				<Button  style={{ background: '#000', width: '20px' }}  variant="contained"  id="login-button" type="submit">go</Button>
+			</Stack>
       </form>
-    </div>
+    </Stack>
   )
 }
 
