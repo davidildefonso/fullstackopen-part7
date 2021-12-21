@@ -1,19 +1,15 @@
-import React, {useState} from 'react'
-
+import React  from 'react'
+import { useNavigate   } from "react-router-dom";
 
 const Blog = ({blog, likeBlog, deleteBlog}) => {
+	const navigate = useNavigate()
+	if(!blog){
+		return null
+	}	
 
-	let isUsertheAuthor = false
-
-	const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
-
-	if (loggedUserJSON) {
-		isUsertheAuthor = blog.user.username === JSON.parse(loggedUserJSON).username ? true: false
-	}
+	const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')	
 	
-		
-
-	const [detailsVisible, setDetailsVisible] = useState(false);
+	const isAuthor = () => blog.user.name === JSON.parse(loggedUserJSON).name ? true: false
 
 
 	const handleClick = () => {	
@@ -22,7 +18,8 @@ const Blog = ({blog, likeBlog, deleteBlog}) => {
 
 	const removeBlog = () => {
 		const confirm = window.confirm(`Are you sure to delete blog ${blog.title}`)
-		confirm && deleteBlog(blog.id)
+		confirm && deleteBlog(blog.id)		
+		navigate('/')
 	}
 
 	const blogStyle = {
@@ -33,28 +30,25 @@ const Blog = ({blog, likeBlog, deleteBlog}) => {
 		marginBottom: 5
 	}
 
-	
+	console.log(blog, isAuthor())
 
 	return (
 	<div style={blogStyle} >
-			<p> 
-				{blog.title}
-				{blog.author}
-				<button
-					onClick={() => setDetailsVisible(!detailsVisible)} >
-					{detailsVisible ? "hide" : "view"}  
-				</button>
-			</p>
-			{detailsVisible && 
-				<div>
-					<p> {blog.url} </p>
-					<p> likes: {blog.likes}  <button onClick={handleClick} >like</button> </p>
-					<p> {blog.user.name} </p>
-					{isUsertheAuthor && 
-						<p><button onClick={removeBlog} > remove </button> </p>
-					}
-					
-				</div>}
+			<h2> 
+				<span> {blog.title} </span>
+				<span> {blog.author} </span>
+		
+			</h2>
+	
+			<div>
+				<p> {blog.url} </p>
+				<p> likes: {blog.likes}  <button onClick={handleClick} >like</button> </p>
+				<p> {blog.user.name} </p>
+				{isAuthor() && 
+					<p><button onClick={removeBlog} > remove </button> </p>
+				}
+				
+			</div>
 	</div>  
 	)
 }
