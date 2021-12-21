@@ -1,7 +1,8 @@
 import React  from 'react'
 import { useNavigate   } from "react-router-dom";
+import Comments from './Comments'
 
-const Blog = ({blog, likeBlog, deleteBlog}) => {
+const Blog = ({blog, likeBlog, deleteBlog, addComment}) => {
 	const navigate = useNavigate()
 	if(!blog){
 		return null
@@ -30,7 +31,7 @@ const Blog = ({blog, likeBlog, deleteBlog}) => {
 		marginBottom: 5
 	}
 
-	console.log(blog, isAuthor())
+
 
 	return (
 	<div style={blogStyle} >
@@ -47,6 +48,7 @@ const Blog = ({blog, likeBlog, deleteBlog}) => {
 				{isAuthor() && 
 					<p><button onClick={removeBlog} > remove </button> </p>
 				}
+				<Comments  comments = {blog.comments} id={blog.id} addComment = {addComment} />
 				
 			</div>
 	</div>  

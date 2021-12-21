@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { useDispatch, useSelector, connect } from 'react-redux'
-import { removeBlog, addLike } from '../reducers/blogReducer'
+import { removeBlog, addLike, commentBlog } from '../reducers/blogReducer'
 import { showNotification, hideNotification } from '../reducers/notificationReducer'
 import Blog from './Blog'
 import Togglable from "../components/Togglable.js";
@@ -26,6 +26,25 @@ const Blogs = (props) => {
 
 		dispatch(showNotification( {
 			content:  "BLOG LIKED!",
+			timeout: setTimeout(() => {
+					dispatch(hideNotification())
+			}, 3000)
+		} ))
+		
+
+	}   
+
+	const addComment =  (comment, id) => {		
+		
+		props.commentBlog(  comment , id)
+
+		if(timeout){
+			clearTimeout(timeout)
+			dispatch(hideNotification())
+		}
+
+		dispatch(showNotification( {
+			content:  "COMMENT ADDED!",
 			timeout: setTimeout(() => {
 					dispatch(hideNotification())
 			}, 3000)
@@ -65,8 +84,9 @@ const Blogs = (props) => {
    <>
 
 		<Routes>		
-			<Route path="/:id" element={<Blog	blog={blog} likeBlog={likeBlog} deleteBlog={deleteBlog}   />} />
-			<Route path="/" element={<BlogsHome	blogs={props.blogs}  user={user} blogFormRef={blogFormRef} />} />
+			<Route path="/:id" element={<Blog addComment={addComment}	blog={blog} likeBlog={likeBlog} deleteBlog={deleteBlog}   />} />
+			<Route path="/" element={
+				<BlogsHome	blogs={props.blogs}   user={user} blogFormRef={blogFormRef} />} />
 		</Routes>		
    </>
   )
@@ -95,7 +115,7 @@ const BlogsHome = ({ blogs, user, blogFormRef }) => {
 }
 
 const mapDispatchToProps = {
-  addLike, removeBlog
+  addLike, removeBlog, commentBlog
 }
 
 const mapStateToProps = (state) => {

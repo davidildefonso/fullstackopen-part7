@@ -11,6 +11,17 @@ export const addLike = ( likes,id) => {
 	}
 }
 
+export const commentBlog = ( comment,id) => { 
+    return async dispatch => {
+		const updatedBlog = await blogService.comment( { content: comment }, id)
+		dispatch({
+			type: 'ADD_COMMENT',
+			data: updatedBlog
+		})
+	}
+}
+
+
 export const removeBlog = ( id) => { 
     return async dispatch => {
 		await blogService.remove( id)
@@ -55,6 +66,13 @@ const reducer = (state = [], action) => {
 			return state.concat(action.data).sort((blog1, blog2) => blog2.likes - blog1.likes)
 
 		case 'LIKE': {
+			const id = action.data.id			
+			return state.map(blog =>
+				blog.id === id ? action.data : blog
+			).sort((blog1, blog2) => blog2.likes - blog1.likes)
+		}
+
+		case 'ADD_COMMENT': {
 			const id = action.data.id			
 			return state.map(blog =>
 				blog.id === id ? action.data : blog
