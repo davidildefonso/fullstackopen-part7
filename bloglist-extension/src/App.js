@@ -1,6 +1,7 @@
 import React, {  useEffect } from 'react'
 import Blogs from './components/Blogs'
 import Users from './components/Users'
+import Home from './components/Home'
 import NavBar from './components/ui-components/NavBar'
 import Notification from "./components/Notification.js";
 import LoginForm from "./components/LoginForm.js";
@@ -35,20 +36,12 @@ const App = () => {
 			<Link className='navbar-link' to="/blogs">blogs</Link>	
 			<Link  className='navbar-link' to="/users">users</Link>		
 			<Link  className='navbar-link' to="/login">{ user ? "logout" : "login"}</Link>
-		</NavBar>		
-
-
-		{user &&  
-			<div>
-				<p>  {user.name} logged in   </p>					
-			</div>
-		}			
-	
+		</NavBar>	
 		<Routes>			
 			<Route path="/users/*" element={<Users/>}  />	
 			<Route path="/login" element={<LoginForm/>}  />	
 			<Route path="/blogs/*" element={<Blogs/>}  />	
-			<Route path="/" element={<div>HOME</div>}  />
+			<Route path="/" element={<Home/>}  />
 		
 		</Routes>
 		

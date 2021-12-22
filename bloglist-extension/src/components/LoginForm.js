@@ -43,12 +43,17 @@ const LoginForm = (props) => {
 	props.logoutUser()
   }
 
-  if(user) return <button  onClick={logout}>logout</button>
+  if(user) return <Stack spacing={2} sx={{ p: 5 }}  direction="column">
+		<div>
+			<p>  {user.name} logged in   </p>					
+		</div>
+		<Button style={{ background: '#000' , maxWidth: '5rem'  }}  variant="contained"  onClick={logout}>logout</Button>
+	</Stack >
 
 
   return (
-    <Stack spacing={2} direction="column" className='login-form-container'>
-      <h2>LOGIN</h2>
+    <Stack spacing={2}  	  direction="column"   className='login-form-container'>
+      <h2  >LOGIN</h2>
 
       <form id="form" onSubmit={login}>
 			<Stack spacing={2} direction="column">

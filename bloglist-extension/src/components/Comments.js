@@ -1,5 +1,6 @@
 import React from 'react'
-
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 
 const Comments = ({comments, addComment, id}) => {
 
@@ -9,19 +10,24 @@ const Comments = ({comments, addComment, id}) => {
 	}
 
 	return (
-		<div>
+		<Stack spacing={2} direction="column"  > 
 			<form onSubmit = {handleClick}>
-				<p>Comment:  <input name="comment" type='text' /> <button  type='submit' >Save</button> </p> 
+				<Stack  spacing={2} direction="row"  > Comment:  <input name="comment" type='text' /> 
+					<Button  type='submit' style={{ background: '#000', width: '20px' }}  variant="contained"  >Save</Button> </Stack> 
 			</form>
 		
 			{comments && 	
-				<ul>
+				<div>
 					{comments.map((c, i) => 
-						<li key= {Math.random(i) * 999919991 + 1} >  {c}  </li>
+					
+						<Stack sx={{ pl: 8,  pb:2 }} spacing={2} direction="column" key= {Math.random(i) * 999919991 + 1} > 
+							{c}
+						</Stack> 
+						
 					)}
-				</ul> }
+				</div> }
 		
-		</div>
+		</Stack>
 	)
 }
 

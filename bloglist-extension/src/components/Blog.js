@@ -1,16 +1,28 @@
 import React  from 'react'
 import { useNavigate   } from "react-router-dom";
 import Comments from './Comments'
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 
 const Blog = ({blog, likeBlog, deleteBlog, addComment}) => {
 	const navigate = useNavigate()
+	
 	if(!blog){
 		return null
 	}	
 
 	const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')	
+
+
+	let isAuthor
+
+	if(!loggedUserJSON){
+		isAuthor = () => false
+	}else{
+		isAuthor = () => blog.user.name === JSON.parse(loggedUserJSON).name ? true: false
+	}
+
 	
-	const isAuthor = () => blog.user.name === JSON.parse(loggedUserJSON).name ? true: false
 
 
 	const handleClick = () => {	
@@ -23,35 +35,29 @@ const Blog = ({blog, likeBlog, deleteBlog, addComment}) => {
 		navigate('/')
 	}
 
-	const blogStyle = {
-		paddingTop: 10,
-		paddingLeft: 2,
-		border: 'solid',
-		borderWidth: 1,
-		marginBottom: 5
-	}
+	
 
 
 
 	return (
-	<div style={blogStyle} >
+	<Stack sx={{ p: 4 }} spacing={2} direction="column"  > 
 			<h2> 
 				<span> {blog.title} </span>
 				<span> {blog.author} </span>
 		
 			</h2>
 	
-			<div>
+			<Stack sx={{ pl: 4 }} spacing={2} direction="column"  > 
 				<p> {blog.url} </p>
-				<p> likes: {blog.likes}  <button onClick={handleClick} >like</button> </p>
+				<Stack  spacing={2} direction="row"  >  <span> likes: </span> {blog.likes}  <Button   style={{ background: '#000', width: '20px' }}  variant="contained" onClick={handleClick} >like</Button> </Stack>
 				<p> {blog.user.name} </p>
 				{isAuthor() && 
 					<p><button onClick={removeBlog} > remove </button> </p>
 				}
 				<Comments  comments = {blog.comments} id={blog.id} addComment = {addComment} />
 				
-			</div>
-	</div>  
+			</Stack>
+	</Stack>  
 	)
 }
 

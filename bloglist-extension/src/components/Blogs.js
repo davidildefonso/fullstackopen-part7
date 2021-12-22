@@ -6,6 +6,8 @@ import Blog from './Blog'
 import Togglable from "../components/Togglable.js";
 import BlogForm from "../components/BlogForm.js";
 import { Routes, Route, Link, useMatch   } from "react-router-dom";
+import Stack from '@mui/material/Stack';
+
 
 const Blogs = (props) => {
 
@@ -94,8 +96,8 @@ const Blogs = (props) => {
 
 const BlogsHome = ({ blogs, user, blogFormRef }) => {
 	return (
-		<>
-				<h2>Blogs</h2>
+		<Stack sx={{ p: 5 }} spacing={2} direction="column">
+				<h2>BLOGS</h2>
 				{user &&  
 					<div>		
 						{<Togglable buttonLabel="Create" ref={blogFormRef} >
@@ -109,7 +111,7 @@ const BlogsHome = ({ blogs, user, blogFormRef }) => {
 						<Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
 					</li>  
 				)}
-		</>
+		</Stack>
 	)
 	
 }

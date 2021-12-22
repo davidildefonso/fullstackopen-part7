@@ -1,18 +1,18 @@
 import React from 'react'
-
+import Stack from '@mui/material/Stack';
 
 const User = ({user}) => {
-	console.log(user)
+
 	return (
-		<div>
+		<Stack sx={{ p: 4 }} spacing={2} direction="column">
 			<h2>{user.name} </h2>
 			<p>List of blogs</p>
-			<ul>
+			<Stack sx={{ pl: 4 }} spacing={2} direction="column">
 				{user.blogs.map(blog => 
-					<li key= {blog.id} >  {blog.title}  </li>
+					<div key= {blog.id} >  {blog.title}  </div>
 				)}
-			</ul>
-		</div>
+			</Stack>
+		</Stack>
 	)
 }
 

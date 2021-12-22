@@ -2,6 +2,8 @@ import React from 'react'
 import { connect, useDispatch, useSelector  } from 'react-redux'
 import { createBlog } from '../reducers/blogReducer'
 import { showNotification, hideNotification } from '../reducers/notificationReducer'
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 
 const BlogForm = ({ createBlog}) => {
 	const dispatch = useDispatch()
@@ -41,17 +43,18 @@ const BlogForm = ({ createBlog}) => {
 	}
 
 	return (
-	<div style={blogFormStyle} >
+	<Stack style={blogFormStyle} spacing={2}  > 
 		<h2>Create a new blog</h2>
 
 		<form className="form"  onSubmit={addBlog}>
-			<h3>Create New</h3>
-			<p>Title: <input className="title" id="title" name='title' /> </p>
-			<p>Author: <input className="author"  id="author" name='author'  /> </p>
-			<p>Url: <input className="url"  id="url" name='url'  /> </p>			
-			<button type="submit" id="create-blog-button">Create</button>
+			<Stack style={blogFormStyle} spacing={2}  > 
+				<p>Title: <input className="title" id="title" name='title' /> </p>
+				<p>Author: <input className="author"  id="author" name='author'  /> </p>
+				<p>Url: <input className="url"  id="url" name='url'  /> </p>			
+				<Button  style={{ background: '#000', width: '5rem' }}  variant="contained" type="submit" id="create-blog-button">Create</Button>
+			</Stack>
 		</form>
-	</div>
+	</Stack>
 	)
 }
 
